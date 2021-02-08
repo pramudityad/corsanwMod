@@ -4,3 +4,8 @@
 
 coverage/
 node_modules/
+
+.env
+example.com+5-key.pem
+example.com+5.pem
+

@@ -1,3 +1,6 @@
+require('dotenv').config();
+
+var fs = require('fs');
 // Listen on a specific host via the HOST environment variable
 var host = process.env.HOST || '0.0.0.0';
 // Listen on a specific port via the PORT environment variable
@@ -40,10 +43,10 @@ cors_proxy.createServer({
     // 'x-forwarded-port',
   ],
   redirectSameOrigin: true,
-  httpProxyOptions: {
-    // Do not add X-Forwarded-For, etc. headers, because Heroku already adds it.
-    xfwd: false,
-  },
+    httpsOptions: {
+        key: fs.readFileSync(__dirname +process.env.KEYNAME),
+        cert: fs.readFileSync(__dirname +process.env.CERTNAME)
+    },
 }).listen(port, host, function() {
   console.log('Running CORS Anywhere on ' + host + ':' + port);
 });
